@@ -71,41 +71,59 @@ export default function Results({ onGo }) {
                     <div style={{ fontSize: "0.73rem", color: "#64748b" }}>{stat}</div>
                   </div>
                 </div>
-              ))}
-            </div>
-          </FadeIn>
-
-          {/* Filter */}
-          <FadeIn delay={0.15}>
-            <div style={{ display: "flex", gap: 8, justifyContent: "center", flexWrap: "wrap", marginBottom: 44 }}>
-              {["All", "Meta Ads", "Google Ads", "SEO", "GMB", "Organic"].map(f => (
-                <button key={f} onClick={() => setFilter(f)} className="filter-btn"
-                  style={{ background: filter === f ? "linear-gradient(135deg,#7c3aed,#4f46e5)" : "rgba(0,0,0,0.03)", border: filter === f ? "none" : "1px solid rgba(0,0,0,0.05)", color: filter === f ? "#fff" : "#64748b", padding: "9px 20px", boxShadow: filter === f ? "0 8px 20px rgba(124,58,237,0.2)" : "none" }}>
-                  {f}
-                </button>
-              ))}
-            </div>
-          </FadeIn>
-
-          {/* Cards grid */}
-          <div className="rg" style={{ display: "grid", gridTemplateColumns: "repeat(2,1fr)", gap: 24 }}>
-            {shown.map((cs, i) => <CSCard key={cs.id} cs={cs} idx={i} />)}
+      <div className="ornament" style={{ width: 600, height: 600, background: "radial-gradient(circle,rgba(6,182,212,0.08),transparent 70%)", top: "20%", left: "-10%" }} />
+      <div style={{ maxWidth: 1200, margin: "0 auto", position: "relative", zIndex: 1 }}>
+        <FadeIn>
+          <div style={{ textAlign: "center", marginBottom: 72 }}>
+            <span className="section-tag">CASE STUDIES</span>
+            <h2 style={{ fontSize: "3rem", fontWeight: 900, marginBottom: 16, letterSpacing: "-0.03em" }}>Proven <span className="gt">Growth</span></h2>
+            <p style={{ color: "#64748b", margin: "0 auto", maxWidth: 600, fontSize: "0.9rem" }}>Data-backed results across various industries including Education, Real Estate, and Retail.</p>
           </div>
+        </FadeIn>
 
-          {/* Bottom CTA */}
-          <FadeIn delay={0.3}>
-            <div style={{ textAlign: "center", marginTop: 64 }}>
-              <div className="glass" style={{ display: "inline-block", borderRadius: 24, padding: "32px 56px", border: "1px solid rgba(124,58,237,0.08)", background: "rgba(255,255,255,0.8)" }}>
-                <div style={{ fontFamily: "'DM Mono',monospace", fontSize: "0.65rem", color: "#7c3aed", letterSpacing: "0.2em", marginBottom: 10 }}>WANT RESULTS LIKE THESE?</div>
-                <h3 style={{ fontSize: "1.6rem", fontWeight: 900, marginBottom: 20, letterSpacing: "-0.02em", color: "#1e293b" }}>Let's build your <span className="gt">success story</span></h3>
-                <button className="glow-cta" onClick={() => onGo("contact")} style={{ background: "linear-gradient(135deg,#7c3aed,#4f46e5)", border: "none", color: "#fff", padding: "15px 40px", borderRadius: 50, fontFamily: "'Syne',sans-serif", fontWeight: 800, fontSize: "0.95rem", cursor: "pointer" }}>
-                  🚀 Start Your Campaign
-                </button>
+        {/* Highlight Stats */}
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 16, marginBottom: 72 }} className="g4">
+          {[["9.42Cr", "Total Impressions", "#a855f7"], ["250+", "Campaigns Managed", "#3b82f6"], ["₹10.09", "Lowest CPL Recorded", "#10b981"], ["100%", "Organic Reach Wins", "#f59e0b"]].map(([v, l, c]) => (
+            <FadeIn key={l} delay={0.1}>
+              <div className="glass lift" style={{ borderRadius: 20, padding: "26px 20px", textAlign: "center", border: `1px solid ${c}25`, background: "rgba(255,255,255,0.02)" }}>
+                <MCard value={v} label={l} color={c} />
               </div>
-            </div>
-          </FadeIn>
+            </FadeIn>
+          ))}
         </div>
-      </section>
+
+        {/* Filters */}
+        <div style={{ display: "flex", justifyContent: "center", gap: 10, marginBottom: 48, flexWrap: "wrap" }}>
+          {["All", "Organic", "Meta", "Google", "SEO", "GMB"].map(f => (
+            <button key={f} className="filter-btn" onClick={() => setFilter(f.toLowerCase())}
+              style={{ padding: "10px 24px", background: filter === f.toLowerCase() ? "rgba(168,85,247,0.15)" : "transparent", border: `1px solid ${filter === f.toLowerCase() ? "#a855f7" : "rgba(168,85,247,0.1)"}`, color: filter === f.toLowerCase() ? "#c084fc" : "#64748b", fontWeight: 700 }}>
+              {f}
+            </button>
+          ))}
+        </div>
+
+        {/* Case Grid */}
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(2,1fr)", gap: 24 }} className="g2">
+          {filtered.map((cs, i) => (
+            <FadeIn key={cs.id} delay={i * 0.1}>
+              <CSCard data={cs} />
+            </FadeIn>
+          ))}
+        </div>
+
+        {/* CTA Card */}
+        <FadeIn delay={0.4}>
+          <div className="glass lift" style={{ marginTop: 80, borderRadius: 32, padding: "64px 40px", textAlign: "center", position: "relative", overflow: "hidden", border: "1px solid rgba(168,85,247,0.2)" }}>
+            <div style={{ position: "absolute", inset: 0, background: "radial-gradient(circle at center,rgba(168,85,247,0.08),transparent 70%)" }} />
+            <h3 style={{ fontSize: "2.4rem", fontWeight: 900, marginBottom: 18, position: "relative" }}>Ready to be my next <span className="gt">Success Story?</span></h3>
+            <p style={{ color: "#94a3b8", fontSize: "1.1rem", maxWidth: 650, margin: "0 auto 36px", position: "relative" }}>Let's build a tailored strategy to scale your brand and dominate your niche using advanced digital tactics.</p>
+            <button className="glow-cta" onClick={() => onGo("contact")} style={{ background: "linear-gradient(135deg,#a855f7,#6366f1)", border: "none", color: "#fff", padding: "18px 48px", borderRadius: 50, fontFamily: "'Syne',sans-serif", fontWeight: 800, fontSize: "1.1rem", cursor: "pointer", position: "relative" }}>
+              🚀 Start Your Growth Journey
+            </button>
+          </div>
+        </FadeIn>
+      </div>
+    </section>
     </>
   );
 }

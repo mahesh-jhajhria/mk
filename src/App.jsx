@@ -31,8 +31,8 @@ export default function App() {
     <div 
       style={{ 
         fontFamily: "'Syne',sans-serif", 
-        background: "#f8fafc", 
-        color: "#1e293b", 
+        background: "#04040a", 
+        color: "#e2e8f0", 
         overflowX: "hidden", 
         cursor: "default" 
       }}

@@ -32,7 +32,7 @@ export default function MCard({ m, color, i }) {
       <div
         style={{
           fontSize: "0.72rem",
-          color: "#475569",
+          color: "#94a3b8",
           fontWeight: 700,
           marginTop: 5,
           lineHeight: 1.3,
@@ -40,7 +40,7 @@ export default function MCard({ m, color, i }) {
       >
         {m.label}
       </div>
-      <div style={{ fontSize: "0.62rem", color: "#94a3b8", marginTop: 3 }}>
+      <div style={{ fontSize: "0.62rem", color: "#64748b", marginTop: 3 }}>
         {m.sub}
       </div>
     </div>

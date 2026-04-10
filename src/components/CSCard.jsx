@@ -2,285 +2,78 @@ import React, { useState } from "react";
 import { useInView } from "../hooks/useInView";
 import MCard from "./MCard";
 
-export default function CSCard({ cs, idx }) {
+export default function CSCard({ cs: data, idx }) {
   const [open, setOpen] = useState(false);
   const [ref, inV] = useInView();
-  const platMap = {
-    meta: {
-      bg: "#1877F220",
-      border: "#1877F250",
-      color: "#60a5fa",
-      label: "Meta Ads",
-    },
-    google: {
-      bg: "#4285F420",
-      border: "#4285F450",
-      color: "#93c5fd",
-      label: "Google Ads",
-    },
-    seo: {
-      bg: "#34A85320",
-      border: "#34A85350",
-      color: "#4ade80",
-      label: "SEO / Search Console",
-    },
-    gmb: {
-      bg: "#FBBC0520",
-      border: "#FBBC0550",
-      color: "#fbbf24",
-      label: "Google My Business",
-    },
-    organic: {
-      bg: "#a855f720",
-      border: "#a855f750",
-      color: "#c084fc",
-      label: "Organic Social",
-    },
-  };
-  const pl = platMap[cs.platform] || platMap.google;
 
   return (
     <div
       ref={ref}
       style={{
         opacity: inV ? 1 : 0,
-        transform: inV ? "none" : "translateY(56px)",
-        transition: `opacity 0.7s cubic-bezier(0.4,0,0.2,1) ${idx * 0.1}s, transform 0.7s cubic-bezier(0.4,0,0.2,1) ${idx * 0.1}s`,
+        transform: inV ? "none" : "translateY(40px)",
+        transition: `opacity 0.7s ease-out ${idx * 0.1}s, transform 0.7s ease-out ${idx * 0.1}s`,
       }}
     >
-      <div
-        style={{
-          background: "rgba(255,255,255,0.7)",
-          backdropFilter: "blur(24px)",
-          border: `1px solid ${cs.color}15`,
-          borderRadius: 24,
-          overflow: "hidden",
-          boxShadow: open ? `0 24px 80px rgba(0,0,0,0.06)` : "0 4px 20px rgba(0,0,0,0.02)",
-          transition: "all 0.4s",
-        }}
-      >
-        <div
-          style={{
-            height: 4,
-            background: `linear-gradient(90deg,${cs.color},${cs.color}60,transparent)`,
-          }}
-        />
-        <div style={{ padding: "28px 26px 24px" }}>
-          {/* Header */}
-          <div
-            style={{
-              display: "flex",
-              alignItems: "flex-start",
-              gap: 14,
-              marginBottom: 18,
-              flexWrap: "wrap",
+      <div className="glass lift" style={{ borderRadius: 28, height: "100%", overflow: "hidden", display: "flex", flexDirection: "column", border: `1px solid ${data.color}25` }}>
+        {/* Visual Header */}
+        <div style={{ height: 160, background: `linear-gradient(135deg, ${data.color}dd, ${data.color}33)`, position: "relative", display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden" }}>
+          <div style={{ position: "absolute", inset: 0, opacity: 0.1, background: "radial-gradient(circle at 70% 30%, white, transparent)" }} />
+          <div style={{ fontSize: "5rem", opacity: 0.2, transform: "rotate(-10deg) scale(1.5)" }}>{data.icon}</div>
+          <div 
+            style={{ 
+              position: "absolute", bottom: 16, left: 16, right: 16, background: "rgba(255,255,255,0.08)", backdropFilter: "blur(12px)", padding: "10px 16px", borderRadius: 16, border: "1px solid rgba(255,255,255,0.15)", display: "flex", alignItems: "center", gap: 10
             }}
           >
-            <div
-              style={{
-                width: 52,
-                height: 52,
-                borderRadius: 14,
-                background: `${cs.color}0a`,
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                fontSize: "1.7rem",
-                flexShrink: 0,
-                border: `1px solid ${cs.color}15`,
-              }}
-            >
-              {cs.icon}
-            </div>
-            <div style={{ flex: 1, minWidth: 180 }}>
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: 8,
-                  flexWrap: "wrap",
-                  marginBottom: 7,
-                }}
-              >
-                <h3
-                  style={{
-                    fontWeight: 900,
-                    fontSize: "1.05rem",
-                    color: "#0f172a",
-                    letterSpacing: "-0.01em",
-                  }}
-                >
-                  {cs.title}
-                </h3>
-                <span
-                  style={{
-                    background: `${cs.color}0c`,
-                    border: `1px solid ${cs.color}25`,
-                    borderRadius: 50,
-                    padding: "2px 10px",
-                    fontSize: "0.6rem",
-                    color: cs.color,
-                    fontFamily: "'DM Mono',monospace",
-                  }}
-                >
-                  {cs.badge}
-                </span>
-              </div>
-              <div
-                style={{
-                  display: "flex",
-                  gap: 8,
-                  flexWrap: "wrap",
-                  alignItems: "center",
-                }}
-              >
-                <span
-                  style={{
-                    background: pl.bg,
-                    border: `1px solid ${pl.border}`,
-                    borderRadius: 50,
-                    padding: "3px 12px",
-                    fontSize: "0.65rem",
-                    color: pl.color,
-                    fontFamily: "'DM Mono',monospace",
-                  }}
-                >
-                  {pl.label}
-                </span>
-                <span
-                  style={{
-                    fontSize: "0.63rem",
-                    color: "#64748b",
-                    fontFamily: "'DM Mono',monospace",
-                  }}
-                >
-                  {cs.subtitle}
-                </span>
-              </div>
+            <div style={{ fontSize: "1.5rem" }}>{data.icon}</div>
+            <div>
+              <div style={{ fontSize: "0.55rem", color: "rgba(255,255,255,0.6)", letterSpacing: "0.15em", fontWeight: 700 }}>{data.platform.toUpperCase()} STRATEGY</div>
+              <div style={{ fontSize: "0.85rem", fontWeight: 900, color: "#fff" }}>{data.title}</div>
             </div>
           </div>
-          {/* KPI strip */}
-          <div
-            style={{
-              background: `${cs.color}08`,
-              border: `1px solid ${cs.color}14`,
-              borderRadius: 12,
-              padding: "12px 16px",
-              marginBottom: 16,
-            }}
-          >
-            <div
-              style={{
-                fontSize: "0.58rem",
-                color: "#64748b",
-                letterSpacing: "0.2em",
-                textTransform: "uppercase",
-                fontFamily: "'DM Mono',monospace",
-                marginBottom: 3,
-              }}
-            >
-              KEY RESULT
-            </div>
-            <div
-              style={{
-                fontSize: "1.2rem",
-                fontWeight: 900,
-                color: cs.color,
-                letterSpacing: "-0.02em",
-              }}
-            >
-              {cs.badge.replace(/^[^\s]+\s/, "")}
-            </div>
+        </div>
+
+        {/* Body */}
+        <div style={{ padding: "24px 20px", flex: 1, display: "flex", flexDirection: "column" }}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 16 }}>
+            <div style={{ fontSize: "0.7rem", color: "#64748b", fontFamily: "'DM Mono',monospace", lineHeight: 1.4 }}>{data.subtitle}</div>
+            <div style={{ background: `${data.color}20`, color: data.color, padding: "5px 12px", borderRadius: 50, fontSize: "0.62rem", fontWeight: 800, border: `1px solid ${data.color}40`, whiteSpace: "nowrap" }}>{data.badge}</div>
           </div>
-          {/* Metrics */}
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(2,1fr)",
-              gap: 9,
-              marginBottom: 16,
-            }}
-          >
-            {cs.metrics.map((m, i) => (
-              <MCard key={i} m={m} color={cs.color} i={i} />
+
+          {/* KPIs */}
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 9, marginBottom: 20 }}>
+            {data.metrics.map((m, i) => (
+              <div key={i} style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.05)", borderRadius: 12, padding: "12px" }}>
+                <div style={{ fontSize: "0.58rem", color: "#64748b", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: 4 }}>{m.label}</div>
+                <div style={{ display: "flex", alignItems: "baseline", gap: 5 }}>
+                  <div style={{ fontSize: "1rem", fontWeight: 900, color: "#e2e8f0" }}>{m.value}</div>
+                  <div style={{ fontSize: "0.55rem", color: data.color, fontWeight: 700 }}>{m.sub}</div>
+                </div>
+              </div>
             ))}
           </div>
-          <p
-            style={{
-              color: "#334155",
-              fontSize: "0.84rem",
-              lineHeight: 1.78,
-              marginBottom: 14,
-            }}
-          >
-            {cs.detail}
-          </p>
-          <button
-            onClick={() => setOpen((v) => !v)}
-            style={{
-              background: "none",
-              border: `1px solid ${cs.color}25`,
-              borderRadius: 50,
-              padding: "7px 18px",
-              color: cs.color,
-              fontSize: "0.7rem",
-              cursor: "pointer",
-              fontFamily: "'DM Mono',monospace",
-              transition: "background 0.25s",
-              letterSpacing: "0.04em",
-            }}
-            onMouseEnter={(e) => (e.currentTarget.style.background = `${cs.color}0a`)}
-            onMouseLeave={(e) => (e.currentTarget.style.background = "none")}
-          >
-            {open ? "▲ Hide Breakdown" : "▼ View Breakdown"}
-          </button>
-          {open && (
-            <div
-              style={{
-                marginTop: 14,
-                borderTop: `1px solid ${cs.color}0c`,
-                paddingTop: 14,
-              }}
+
+          <p style={{ color: "#94a3b8", fontSize: "0.8rem", lineHeight: 1.7, marginBottom: 20 }}>{data.detail}</p>
+
+          {/* Action Toggle */}
+          <div style={{ marginTop: "auto" }}>
+            <button 
+              onClick={() => setOpen(!open)}
+              style={{ width: "100%", background: open ? "rgba(255,255,255,0.05)" : "transparent", border: `1px solid ${data.color}40`, padding: "10px", borderRadius: 12, color: data.color, cursor: "pointer", transition: "all 0.3s", fontFamily: "'DM Mono',monospace", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.05em" }}
             >
-              <div
-                style={{
-                  fontSize: "0.6rem",
-                  color: "#64748b",
-                  letterSpacing: "0.2em",
-                  marginBottom: 10,
-                  fontFamily: "'DM Mono',monospace",
-                }}
-              >
-                FULL BREAKDOWN
+              {open ? "CLOSE DETAILS ▲" : "VIEW BREAKDOWN ▼"}
+            </button>
+
+            {open && (
+              <div style={{ marginTop: 12, background: "rgba(0,0,0,0.2)", borderRadius: 12, padding: 16, animation: "slideDown 0.4s ease" }}>
+                {data.breakdown.map((b, i) => (
+                  <div key={i} style={{ display: "flex", gap: 8, fontSize: "0.75rem", color: "#94a3b8", marginBottom: 6, lineHeight: 1.5 }}>
+                    <span style={{ color: data.color, marginTop: 2 }}>🎯</span> {b}
+                  </div>
+                ))}
               </div>
-              {cs.breakdown.map((b, i) => (
-                <div
-                  key={i}
-                  style={{
-                    display: "flex",
-                    alignItems: "flex-start",
-                    gap: 8,
-                    fontSize: "0.8rem",
-                    color: "#475569",
-                    marginBottom: 7,
-                    lineHeight: 1.5,
-                  }}
-                >
-                  <span
-                    style={{
-                      color: cs.color,
-                      fontSize: "0.45rem",
-                      flexShrink: 0,
-                      marginTop: 6,
-                    }}
-                  >
-                    ◆
-                  </span>
-                  {b}
-                </div>
-              ))}
-            </div>
-          )}
+            )}
+          </div>
         </div>
       </div>
     </div>
